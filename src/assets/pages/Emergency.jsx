@@ -7,9 +7,9 @@ const Emergency = () => {
   const [countdown, setCountdown] = useState(0);
   const [location, setLocation] = useState(null);
   const [emergencyContacts, setEmergencyContacts] = useState([
-    { id: 1, name: 'Mom', phone: '+1 (555) 123-4567', relationship: 'Family' },
-    { id: 2, name: 'Dad', phone: '+1 (555) 234-5678', relationship: 'Family' },
-    { id: 3, name: 'Sarah', phone: '+1 (555) 345-6789', relationship: 'Friend' }
+    { id: 1, name: 'Mom', phone: '+91 12345 67890', relationship: 'Family' },
+    { id: 2, name: 'Dad', phone: '+91 90876 54321', relationship: 'Family' },
+    { id: 3, name: 'Sarah', phone: '+91 10293 84756', relationship: 'Friend' }
   ]);
 
   useEffect(() => {
@@ -46,21 +46,13 @@ const Emergency = () => {
   const handleEmergencyAlert = () => {
     setIsEmergencyActive(false);
     setCountdown(0);
-    
-    // Simulate emergency alert
     toast.success('Emergency alert sent to all contacts!');
-    
-    // Here you would typically:
-    // 1. Send SMS to emergency contacts
-    // 2. Call emergency services
-    // 3. Share location data
-    // 4. Log the emergency
   };
 
   const triggerEmergency = () => {
     getCurrentLocation();
     setIsEmergencyActive(true);
-    setCountdown(5); // 5 second countdown
+    setCountdown(5);
     toast.error('Emergency alert will be sent in 5 seconds!');
   };
 
@@ -71,13 +63,17 @@ const Emergency = () => {
   };
 
   const addEmergencyContact = () => {
-    // This would open a modal or form to add a new contact
     toast.success('Add contact functionality would open here');
   };
+
+  const cardClass = "bg-white rounded-lg shadow p-4";
+  const buttonSecondary = "bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded";
+  const buttonPrimary = "bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded";
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Emergency SOS</h1>
@@ -89,7 +85,7 @@ const Emergency = () => {
           {!isEmergencyActive ? (
             <button
               onClick={triggerEmergency}
-              className="w-32 h-32 bg-danger-600 hover:bg-danger-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              className="w-32 h-32 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
             >
               <div className="text-center">
                 <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
@@ -98,16 +94,13 @@ const Emergency = () => {
             </button>
           ) : (
             <div className="space-y-4">
-              <div className="w-32 h-32 bg-danger-600 rounded-full flex items-center justify-center text-white shadow-lg mx-auto animate-pulse">
+              <div className="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg mx-auto animate-pulse">
                 <div className="text-center">
                   <Clock className="w-12 h-12 mx-auto mb-2" />
                   <span className="text-2xl font-bold">{countdown}</span>
                 </div>
               </div>
-              <button
-                onClick={cancelEmergency}
-                className="btn-secondary"
-              >
+              <button onClick={cancelEmergency} className={buttonSecondary}>
                 Cancel Emergency
               </button>
             </div>
@@ -116,12 +109,12 @@ const Emergency = () => {
 
         {/* Emergency Status */}
         {isEmergencyActive && (
-          <div className="card bg-danger-50 border-danger-200 mb-8">
+          <div className={`${cardClass} bg-red-50 border border-red-200 mb-8`}>
             <div className="flex items-center space-x-3">
-              <AlertTriangle className="w-6 h-6 text-danger-600" />
+              <AlertTriangle className="w-6 h-6 text-red-600" />
               <div>
-                <h3 className="text-lg font-semibold text-danger-900">Emergency Alert Active</h3>
-                <p className="text-danger-700">
+                <h3 className="text-lg font-semibold text-red-900">Emergency Alert Active</h3>
+                <p className="text-red-700">
                   Alert will be sent to all emergency contacts in {countdown} seconds
                 </p>
               </div>
@@ -130,14 +123,12 @@ const Emergency = () => {
         )}
 
         <div className="grid lg:grid-cols-2 gap-8">
+          
           {/* Emergency Contacts */}
-          <div className="card">
+          <div className={cardClass}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-gray-900">Emergency Contacts</h2>
-              <button
-                onClick={addEmergencyContact}
-                className="text-primary-600 hover:text-primary-700 font-medium"
-              >
+              <button onClick={addEmergencyContact} className="text-blue-600 hover:text-blue-700 font-medium">
                 Add Contact
               </button>
             </div>
@@ -146,8 +137,8 @@ const Emergency = () => {
               {emergencyContacts.map((contact) => (
                 <div key={contact.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                      <Users className="w-5 h-5 text-primary-600" />
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Users className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900">{contact.name}</h3>
@@ -162,21 +153,12 @@ const Emergency = () => {
               ))}
             </div>
 
-            <div className="mt-6 p-4 bg-primary-50 rounded-lg">
-              <h3 className="font-medium text-primary-900 mb-2">Emergency Services</h3>
-              <div className="space-y-2 text-sm text-primary-700">
-                <div className="flex justify-between">
-                  <span>Police:</span>
-                  <span>911</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Ambulance:</span>
-                  <span>911</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Fire Department:</span>
-                  <span>911</span>
-                </div>
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <h3 className="font-medium text-blue-900 mb-2">Emergency Services</h3>
+              <div className="space-y-2 text-sm text-blue-700">
+                <div className="flex justify-between"><span>Police:</span><span>911</span></div>
+                <div className="flex justify-between"><span>Ambulance:</span><span>911</span></div>
+                <div className="flex justify-between"><span>Fire Department:</span><span>911</span></div>
               </div>
             </div>
           </div>
@@ -184,7 +166,7 @@ const Emergency = () => {
           {/* Emergency Features */}
           <div className="space-y-6">
             {/* Location Status */}
-            <div className="card">
+            <div className={cardClass}>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Location Services</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -193,55 +175,46 @@ const Emergency = () => {
                     <span className="text-gray-700">GPS Location</span>
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    location ? 'bg-success-100 text-success-700' : 'bg-gray-100 text-gray-600'
+                    location ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
                   }`}>
                     {location ? 'Active' : 'Inactive'}
                   </span>
                 </div>
-                
+
                 {location && (
                   <div className="p-3 bg-gray-50 rounded-lg">
-                    <p className="text-sm text-gray-600">
-                      <strong>Latitude:</strong> {location.lat.toFixed(6)}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <strong>Longitude:</strong> {location.lng.toFixed(6)}
-                    </p>
+                    <p className="text-sm text-gray-600"><strong>Latitude:</strong> {location.lat.toFixed(6)}</p>
+                    <p className="text-sm text-gray-600"><strong>Longitude:</strong> {location.lng.toFixed(6)}</p>
                   </div>
                 )}
 
-                <button
-                  onClick={getCurrentLocation}
-                  className="w-full btn-secondary"
-                >
+                <button onClick={getCurrentLocation} className={`w-full ${buttonSecondary}`}>
                   Update Location
                 </button>
               </div>
             </div>
 
-            {/* Emergency Features */}
-            <div className="card">
+            {/* Extra Features */}
+            <div className={cardClass}>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Emergency Features</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <Shield className="w-5 h-5 text-primary-600" />
+                    <Shield className="w-5 h-5 text-blue-600" />
                     <span className="text-gray-700">Auto-dial Emergency Services</span>
                   </div>
                   <span className="text-sm text-gray-500">Enabled</span>
                 </div>
-
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <MessageCircle className="w-5 h-5 text-primary-600" />
+                    <MessageCircle className="w-5 h-5 text-blue-600" />
                     <span className="text-gray-700">SMS Alerts</span>
                   </div>
                   <span className="text-sm text-gray-500">Enabled</span>
                 </div>
-
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <MapPin className="w-5 h-5 text-primary-600" />
+                    <MapPin className="w-5 h-5 text-blue-600" />
                     <span className="text-gray-700">Location Sharing</span>
                   </div>
                   <span className="text-sm text-gray-500">Enabled</span>
@@ -250,9 +223,9 @@ const Emergency = () => {
             </div>
 
             {/* Safety Tips */}
-            <div className="card bg-warning-50 border-warning-200">
-              <h3 className="text-lg font-semibold text-warning-900 mb-3">Emergency Tips</h3>
-              <div className="space-y-2 text-sm text-warning-700">
+            <div className={`${cardClass} bg-yellow-50 border border-yellow-200`}>
+              <h3 className="text-lg font-semibold text-yellow-900 mb-3">Emergency Tips</h3>
+              <div className="space-y-2 text-sm text-yellow-700">
                 <p>• Only use SOS in genuine emergencies</p>
                 <p>• Stay calm and follow instructions</p>
                 <p>• Provide clear information to responders</p>
@@ -264,7 +237,7 @@ const Emergency = () => {
 
         {/* Recent Alerts */}
         <div className="mt-8">
-          <div className="card">
+          <div className={cardClass}>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Emergency Alerts</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -284,6 +257,7 @@ const Emergency = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
