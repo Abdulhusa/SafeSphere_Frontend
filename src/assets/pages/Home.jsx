@@ -201,7 +201,7 @@ const Home = () => {
               to="/register"
               className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
             >
-              Start Your Free Trial
+              Start Your Trial
             </Link>
             <Link
               to="/safebot"
